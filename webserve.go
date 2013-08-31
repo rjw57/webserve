@@ -6,10 +6,13 @@ import "log"
 import "net/http"
 
 func main() {
-	var specStringPtr = flag.String("addr", ":8080", "[address][:port] to serve from")
+	var ipStringPtr = flag.String("ip", "0.0.0.0", "IP address to bind to")
+	var portStringPtr = flag.String("port", "8080", "port number to bind to")
 	flag.Parse()
 
+	var bindStr = fmt.Sprintf("%s:%s", *ipStringPtr, *portStringPtr);
+
 	http.Handle("/", http.FileServer(http.Dir(".")))
-	log.Println(fmt.Sprintf("Serving current directory on %s", *specStringPtr))
-	log.Fatal(http.ListenAndServe(*specStringPtr, nil))
+	log.Println(fmt.Sprintf("Serving current directory on http://%s/", bindStr))
+	log.Fatal(http.ListenAndServe(bindStr, nil))
 }
