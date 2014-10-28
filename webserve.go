@@ -10,7 +10,7 @@ func main() {
 	var portStringPtr = flag.String("port", "8080", "port number to bind to")
 	flag.Parse()
 
-	var bindStr = fmt.Sprintf("%s:%s", *ipStringPtr, *portStringPtr);
+	var bindStr = fmt.Sprintf("%s:%s", *ipStringPtr, *portStringPtr)
 
 	http.Handle("/", http.FileServer(http.Dir(".")))
 	log.Println(fmt.Sprintf("Serving current directory on http://%s/", bindStr))
